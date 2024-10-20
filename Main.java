@@ -6,53 +6,50 @@ public class Main {
 
     //Field
 
+    private static final String VERSION = "2.0.0";
     private JFrame frame;
     private  Rendi rendi;
     private static final int WIDTH = 400;
     private static final int HEIGHT = 450;
-    //private Player player = new Player();
     private static HelpClassGame helpClassGame = new HelpClassGame();
     private Thread thread;
-    private JTextArea textArea = new JTextArea(10, 10);
 
 
     //Methods
+
+    //public static String getVersion(){
+    //    return VERSION;
+    //}
 
     public static void main(String[] args) {
         System.out.println("Hello world!");
         new Main().Start();
     }
 
-    public void Start(){
+    public void Start() {
 
-        textArea.setEditable(false);
-        frame = new JFrame("[OFFLINE] Version 2.0.0");
+        Rendi.player.setName(JOptionPane.showInputDialog("Set Name"));
+        frame = new JFrame("[OFFLINE] Version " + VERSION);
         rendi = new Rendi();
-        textArea.append("set all " + "\n");
+        Rendi.console.addFirstLine("set all ");
         frame.getContentPane().add(rendi);
         frame.addKeyListener(new moves());
         frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
         frame.setSize(WIDTH, HEIGHT);
         frame.setLocation(789, 313);
         helpClassGame.SetPos();
-        textArea.append("seting pose.. " + "\n");
+        Rendi.console.addLine("seting pose.. ");
         thread = new Thread(new UpdateClass());
         thread.setName("Update");
         thread.start();
         frame.setVisible(true);
-        textArea.append("Done! " + "\n");
-
+        Rendi.console.addLine("Done!");
+        Rendi.console.addLine("Welcome to Version " + VERSION);
         while (true){
             frame.setSize(WIDTH, HEIGHT);
-            frame.setLocation(789, 313);
-
-
         }
     }
 
-    private void TextConsole(){
-        Rendi.console.setLine(textArea.getText());
-    }
 
     private void update(){
         rendi.repaint();
@@ -67,16 +64,28 @@ public class Main {
         public void keyPressed(KeyEvent e) {
 
             if (e.getKeyCode() == KeyEvent.VK_UP){
-                rendi.player.setY(rendi.player.getY() - SPEED);
+                Rendi.player.setY(Rendi.player.getY() - SPEED);
             }
             if (e.getKeyCode() == KeyEvent.VK_DOWN){
-                rendi.player.setY(rendi.player.getY() + SPEED);
+                Rendi.player.setY(Rendi.player.getY() + SPEED);
             }
             if (e.getKeyCode() == KeyEvent.VK_LEFT){
-                rendi.player.setX(rendi.player.getX() - SPEED);
+                Rendi.player.setX(Rendi.player.getX() - SPEED);
             }
             if (e.getKeyCode() == KeyEvent.VK_RIGHT){
-                rendi.player.setX(rendi.player.getX() + SPEED);
+                Rendi.player.setX(Rendi.player.getX() + SPEED);
+            }
+
+            if (e.getKeyCode() == KeyEvent.VK_1){
+                if(HelpClassGame.inventory.getSize() != 0){
+                    Rendi.console.addLine(  HelpClassGame.inventory.getNameOfItem() + HelpClassGame.inventory.getIDitem() + " removed");
+                    HelpClassGame.inventory.removeItem(HelpClassGame.inventory.getIDitem());
+                }else {
+                    Rendi.console.addLine("There is nothing to remove!");
+                    Rendi.player.setHeal(Rendi.player.getHeal()-5);
+
+                }
+
             }
 
         }
@@ -92,9 +101,7 @@ public class Main {
 
             while (true){
                 update();
-                TextConsole();
                 helpClassGame.CollectBox();
-
             }
 
         }

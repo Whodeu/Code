@@ -5,7 +5,7 @@ public class BoxObject extends ClassicObject{
 
     //Field
 
-    Image BoxIcon =  new ImageIcon("resource/textures/Box.png").getImage();
+    Image BoxIcon =  new ImageIcon("resource/textures/Box_placeholder.png").getImage();
 
     //Methods
 

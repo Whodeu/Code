@@ -1,4 +1,4 @@
-public abstract class ClassicObject {
+public abstract class ClassicObject implements XY {
 
     private int Points;
     private int x;

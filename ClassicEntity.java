@@ -1,4 +1,4 @@
-public abstract class ClassicEntity {
+public abstract class ClassicEntity implements XY {
 
     //Constructor
 
@@ -7,17 +7,31 @@ public abstract class ClassicEntity {
     //Field
 
     private boolean Alive;
-    private int Heal;
+    private int HP = 35;
     private int x;
     private int y;
 
     //Methods
 
+    public int getHeal(){
+        return HP;
+    }
+
+    public void setHeal(int i){
+        if(i >= 35){
+            HP = 35;
+        }else if(i <= 0){
+            HP = 0;
+        }else {
+            HP = i;
+        }
+    }
+
     public void setX(int i){
         if (i < 0){
             x = 0;
-        } else if (i > 400) {
-            x = 400;
+        } else if (i > 355) {
+            x = 355;
         }else {
             x = i;
         }
@@ -26,8 +40,8 @@ public abstract class ClassicEntity {
     public void setY(int i){
         if (i < 0){
             y = 0;
-        } else if (i > 450) {
-            y = 450;
+        } else if (i > 382) {
+            y = 382;
         }else {
             y = i;
         }

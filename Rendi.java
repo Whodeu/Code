@@ -8,6 +8,7 @@ public  class Rendi extends JComponent {
     static Player player = new Player();
     static BoxObject boxObject = new BoxObject();
     static Console console = new Console();
+    HelpClassGame helpClassGame = new HelpClassGame();
 
 
     public void paint(Graphics g){
@@ -15,6 +16,13 @@ public  class Rendi extends JComponent {
         boxObject.print(g);
         player.print(g);
         console.print(g);
+        if (HelpClassGame.inventory.getSize() != 0){
+            helpClassGame.item = (Item) HelpClassGame.inventory.getitem();
+            helpClassGame.item.print(g);
+
+        }else {
+
+        }
     }
 
 }
